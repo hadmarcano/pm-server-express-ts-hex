@@ -2,7 +2,7 @@ import { IEntity } from 'src/modules/shared/entity.interface'
 
 // Interfaces
 interface UserRequired {
-   id: number
+   // id: number
    name: string
    lastname: string
    email: string
@@ -10,6 +10,7 @@ interface UserRequired {
 }
 
 interface UserOptional {
+   guid: string
    refreshToken: string
    active: boolean
 }
@@ -27,7 +28,8 @@ export type UserProperties = Required<UserRequired> & Partial<UserOptional>
 
 // Domain model
 export default class User implements IEntity<UserProperties, UserUpdate> {
-   private readonly id: number
+   // private readonly id: number
+   private readonly guid: string
    private name: string
    private lastname: string
    private readonly email: string
@@ -43,7 +45,7 @@ export default class User implements IEntity<UserProperties, UserUpdate> {
    // Methods
    properties(): UserProperties {
       return {
-         id: this.id,
+         // id: this.id,
          name: this.name,
          lastname: this.lastname,
          email: this.email,

@@ -1,4 +1,13 @@
-import { Router } from 'express'
+import { Router, Request, Response } from 'express'
+import UserApplication from '../../../application/user.application'
+import { UserRepository } from '../../../domain/user.repository'
+import UserInfraestructure from '../../../infraestructure/user.infraestructure'
+import UserController from './controller'
+
+// Instanciation Definitions
+const infraestructure: UserRepository = new UserInfraestructure()
+const application = new UserApplication(infraestructure)
+const controller = new UserController(application)
 
 class UserRouter {
    readonly expressRouter: Router
@@ -9,27 +18,23 @@ class UserRouter {
    }
 
    mountRoutes() {
-      this.expressRouter.get('/description', (req, res) => {
-         res.send('<h2>User: hadmarcano</h2>')
-      })
+      // Design Pattern: Chain Of Responsability
 
-      this.expressRouter.get('/list', (req, res) => {
-         res.json([
-            { username: 'hadmarcano', active: true },
-            { username: 'aguerra', active: true },
-         ])
-      })
+      // 1-Routing: with Design Pattern: Links Of Method / Method Binding
+      this.expressRouter.get('/', controller.list)
 
-      this.expressRouter.get('/detail', (req, res) => {
-         res.json({
-            username: ' hadmarcano',
-            active: false,
-         })
-      })
+      // 2-Routing: with Router context
+      // this.expressRouter.get('/list', (req: Request, res: Response) => {
+      //    controller.list(req, res)
+      // })
 
-      this.expressRouter.get('/delete', (req, res) => {
-         res.send('User deleted successfully')
-      })
+      this.expressRouter.get('/:guid', controller.listOne)
+
+      this.expressRouter.post('/', controller.insert)
+
+      this.expressRouter.put('/:guid', controller.update)
+
+      // this.expressRouter.delete('/:guid', controller.delete)
    }
 }
 

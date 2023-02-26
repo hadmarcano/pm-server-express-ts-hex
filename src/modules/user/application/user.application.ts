@@ -2,11 +2,12 @@ import User from '../domain/user'
 import { UserRepository } from '../domain/user.repository'
 
 export default class UserApplication {
+   // Design Pattern: Injection Dependency
    constructor(private readonly userRepository: UserRepository) {}
 
    // when you dont make implements, you can change the name of methods
-   getUser(id: number) {
-      return this.userRepository.listOne(id)
+   getUser(guid: string) {
+      return this.userRepository.listOne(guid)
    }
 
    listUsers() {
@@ -17,7 +18,7 @@ export default class UserApplication {
       return this.userRepository.update(user)
    }
 
-   deleteUser(user: User) {
-      return this.userRepository.delete(user)
+   insertUser(user: User) {
+      return this.userRepository.insert(user)
    }
 }

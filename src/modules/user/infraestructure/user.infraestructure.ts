@@ -1,9 +1,9 @@
-import User from '../domain/user'
+import User, { UserProperties } from '../domain/user'
 import { UserRepository } from '../domain/user.repository'
 
 const users: User[] = [
    new User({
-      id: 1,
+      // id: 1,
       name: 'Facundo',
       lastname: 'Ramirez',
       email: 'facuramirez@gmail.com',
@@ -13,7 +13,7 @@ const users: User[] = [
    }),
 
    new User({
-      id: 1,
+      // id: 2,
       name: 'Hector',
       lastname: 'Arteaga',
       email: 'artehector@gmail.com',
@@ -23,28 +23,31 @@ const users: User[] = [
    }),
 ]
 
+// When i create a class implementing other like this case,
+// we are complying with the solid principle: Dependency Inversion.
 export default class UserInfraestructure implements UserRepository {
    list(): User[] {
       return users
    }
 
-   listOne(id: number): User {
-      return Object.assign(
+   listOne(guid: string): User {
+      const user: User = Object.assign(
          {},
-         users.find((el: User) => el.properties().id === id),
+         users.find((el: User) => el.properties().guid === guid),
       )
+
+      console.log('ListOne :', user)
+
+      return user
    }
 
-   insert(user: User): void {
+   insert(user: User): any {
       console.log('user inserted', user)
+      return user
    }
 
-   update(user: User): void {
+   update(user: User): any {
       console.log('user update', user)
-   }
-
-   delete(user: User): void {
-      console.log('user deleted', user)
-      user.delete()
+      return user
    }
 }
