@@ -1,10 +1,11 @@
 import { v4 as uuidv4 } from 'uuid'
 import { UserPasswordService } from './services/user-password.service'
 import User, { UserProperties } from './user'
+import { EmailVO } from './value-object/email.vo'
 
-// Design Pattern: Abstract Factory
+// Design Pattern: Abstract Factory && Method Factory
 export default class UserFactory {
-   async create(name: string, lastname: string, email: string, password: string) {
+   async create(name: string, lastname: string, email: EmailVO, password: string) {
       const passwordHash = await UserPasswordService.hash(password)
       const userProperties: UserProperties = {
          name,

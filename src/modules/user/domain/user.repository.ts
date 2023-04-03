@@ -4,8 +4,8 @@ import User, { UserProperties } from './user'
 
 export interface UserRepository {
    // Design Pattern Fachade
-   list(): User[]
+   list(): UserProperties[]
    listOne(guid: string): User
    insert(user: User): UserProperties
-   update(user: User): UserProperties
+   update(user: User): User
 }

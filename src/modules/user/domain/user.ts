@@ -1,11 +1,12 @@
 import { IEntity } from 'src/modules/shared/entity.interface'
+import { EmailVO } from './value-object/email.vo'
 
 // Interfaces
 interface UserRequired {
    // id: number
    name: string
    lastname: string
-   email: string
+   email: EmailVO
    password: string
 }
 
@@ -17,11 +18,9 @@ interface UserOptional {
 
 type UserUpdate = {
    name: string
+   email: EmailVO
    lastname: string
-   email: string
    password: string
-   refreshToken: string
-   active: boolean
 }
 
 export type UserProperties = Required<UserRequired> & Partial<UserOptional>
@@ -32,7 +31,7 @@ export default class User implements IEntity<UserProperties, UserUpdate> {
    private readonly guid: string
    private name: string
    private lastname: string
-   private readonly email: string
+   private readonly email: EmailVO
    private password: string
    private refreshtoken: string
    private active: boolean

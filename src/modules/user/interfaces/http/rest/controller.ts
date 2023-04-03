@@ -1,6 +1,14 @@
+import User, { UserProperties } from '../../../domain/user'
 import { Request, Response } from 'express'
 import UserApplication from '../../../application/user.application'
-import User, { UserProperties } from '../../../domain/user'
+import UserFactory from '../../../domain/user.factory'
+import { EmailVO } from '../../../domain/value-object/email.vo'
+// DTOS
+import { UserListDTO } from '../dto/response/user-list.dto'
+import { UserListMapping } from '../dto/response/user-list.dto'
+import { UserListOneDTO } from '../dto/response/user-list-one.dto'
+import { UserListOneMapping } from '../dto/response/user-list-one.dto'
+import { UserInsertMapping } from '../dto/response/user-insert.dto'
 
 export default class {
    constructor(private application: UserApplication) {
@@ -15,26 +23,28 @@ export default class {
 
    list(req: Request, res: Response) {
       const list = this.application.listUsers()
-      res.json(list)
+      const result: UserListDTO = new UserListMapping().execute(list)
+      res.json(result)
    }
 
    listOne(req: Request, res: Response) {
-      const user = this.application.getUser('guid')
-      res.json(user)
+      const { guid } = req.params
+      const data = this.application.getUser(guid).properties()
+      const result: UserListOneDTO = new UserListOneMapping().execute(data)
+
+      res.json(result)
    }
 
-   insert(req: Request, res: Response) {
-      const properties: UserProperties = {
-         // id: 3,
-         name: 'Jesus',
-         lastname: 'Rico',
-         email: 'jrico@gmail.com',
-         password: 'jrico123',
-         refreshToken: '123jrico123',
-      }
-      const user: User = new User(properties)
-      const userInsert = this.application.insertUser(user)
-      res.json(userInsert)
+   async insert(req: Request, res: Response) {
+      const { name, lastname, email, password } = req.body
+
+      const user: User = await new UserFactory().create(name, lastname, EmailVO.create(email), password)
+
+      const data = this.application.insertUser(user)
+
+      const result = new UserInsertMapping().execute(data)
+
+      res.json(result)
    }
 
    update(req: Request, res: Response) {
@@ -42,7 +52,7 @@ export default class {
          // id: 3,
          name: 'Jesus',
          lastname: 'Gonzalez',
-         email: 'jrico@gmail.com',
+         email: EmailVO.create('jrico@gmail.com'),
          password: 'jrico123',
          refreshToken: '123jrico123',
       }

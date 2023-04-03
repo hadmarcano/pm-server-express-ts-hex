@@ -9,12 +9,18 @@ class App {
    constructor() {
       this.expressApp = express()
       this.mountHealthCheck()
+      this.mountMiddlewares()
       this.mountRoutes()
       this.mountErrors()
    }
 
    mountHealthCheck() {
       this.expressApp.use('/', routerHealth)
+   }
+
+   mountMiddlewares() {
+      this.expressApp.use(express.json())
+      this.expressApp.use(express.urlencoded({ extended: true }))
    }
 
    mountRoutes(): void {
