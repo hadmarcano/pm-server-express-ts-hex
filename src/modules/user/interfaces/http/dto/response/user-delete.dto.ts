@@ -1,12 +1,16 @@
-import { UserProperties } from 'src/modules/user/domain/user'
-import { DTO } from './dto.interface'
+import { UserProperties } from 'src/modules/user/domain/types/userProperties.type'
+import { DTO } from './interfaces/dto.interface'
+import { UserDTO } from './interfaces/userDto.interface'
 
-interface UserDTO {
-   name: string
-}
+export type UserDeleteDTO = UserDTO
 
-export class UserDeleteDTO extends DTO<UserProperties, UserDTO> {
-   execute(data: UserProperties): UserDTO {
-      return { name: data.name }
+export class UserDeleteMappingDTO extends DTO<UserProperties, UserDeleteDTO> {
+   execute(data: UserProperties): UserDeleteDTO {
+      return {
+         name: data.name,
+         lastname: data.lastname,
+         email: data.email.value,
+         guid: data.guid,
+      }
    }
 }

@@ -1,8 +1,12 @@
-import { Router, Request, Response } from 'express'
+import {
+   Router,
+   // Request, Response
+} from 'express'
 import UserApplication from '../../../application/user.application'
 import { UserRepository } from '../../../domain/user.repository'
 import UserInfraestructure from '../../../infraestructure/user.infraestructure'
 import UserController from './controller'
+import { MiddlewareListOne } from '../middlewares/user.middleware'
 
 // Instanciation Definitions
 const infraestructure: UserRepository = new UserInfraestructure()
@@ -27,14 +31,13 @@ class UserRouter {
       // this.expressRouter.get('/list', (req: Request, res: Response) => {
       //    controller.list(req, res)
       // })
-
-      this.expressRouter.get('/:guid', controller.listOne)
+      this.expressRouter.get('/:guid', ...MiddlewareListOne, controller.listOne)
 
       this.expressRouter.post('/', controller.insert)
 
       this.expressRouter.put('/:guid', controller.update)
 
-      // this.expressRouter.delete('/:guid', controller.delete)
+      this.expressRouter.delete('/:guid', controller.delete)
    }
 }
 

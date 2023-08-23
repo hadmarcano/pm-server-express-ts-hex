@@ -1,12 +1,6 @@
-import { UserProperties } from 'src/modules/user/domain/user'
-import { DTO } from './dto.interface'
-
-interface UserDTO {
-   name: string
-   lastname: string
-   email: string
-   guid: string
-}
+import { UserProperties } from 'src/modules/user/domain/types/userProperties.type'
+import { DTO } from './interfaces/dto.interface'
+import { UserDTO } from './interfaces/userDto.interface'
 
 export type UserListOneDTO = UserDTO
 
