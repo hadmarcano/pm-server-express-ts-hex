@@ -36,7 +36,7 @@ luego de esto, la segunda etapa es que se optimiza el tamaño de las dependencia
 - docker network inspect net-hexa-advance
 ```
 
-### 5. Creando nuestro contenedor con la nueva imagen
+### 5. Creando nuestro contenedor con la nueva imagen.
 
 ```
 - docker run -d --name nodets-advance-container --network net-hexa-advance -p 3000:3000 -e DB_HOST=mysqlserver -e DB_PORT=3306  api-nodets-advance:1.0.0
