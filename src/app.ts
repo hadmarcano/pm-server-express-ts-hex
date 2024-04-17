@@ -43,6 +43,7 @@ class App {
 
    mountRoutes(): void {
       this.expressApp.use('/user', routerUser)
+      // If you've more routes...
       // this.expressApp.use('/driver', routerDriver)
    }
 

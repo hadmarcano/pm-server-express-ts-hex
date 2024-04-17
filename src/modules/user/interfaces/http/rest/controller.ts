@@ -52,6 +52,8 @@ export default class {
 
    async insert(req: Request, res: Response, next: NextFunction) {
       const { name, lastname, email, password } = req.body
+      // console.log(name, lastname, email, password)
+
       const emailResult = EmailVO.create(email)
       if (emailResult.isErr()) {
          const err: IError = new Error(emailResult.error.message)
@@ -65,6 +67,8 @@ export default class {
          err.status = 411
          return next(err)
       } else {
+         // console.log('userResult', userResult)
+
          const data = await this.application.insertUser(userResult.value)
 
          const result = new UserInsertMapping().execute(data.properties())

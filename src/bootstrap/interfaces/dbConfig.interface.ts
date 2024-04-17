@@ -5,6 +5,6 @@ export interface DB_CONFIG {
    username: string
    password: string
    database: string
-   syncronize: boolean
+   synchronize: boolean
    logging: boolean
 }

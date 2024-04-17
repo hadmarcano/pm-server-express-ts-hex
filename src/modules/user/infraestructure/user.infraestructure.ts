@@ -13,6 +13,7 @@ export default class UserInfraestructure implements UserRepository {
    async list(): Promise<User[]> {
       const repo = DatabaseBootstrap.dataSource.getRepository(UserEntity)
 
+
       const result = await repo.find({ where: { active: true } })
 
       return result.map((el: UserEntity) => {
@@ -67,6 +68,7 @@ export default class UserInfraestructure implements UserRepository {
 
    async insert(user: User): Promise<User> {
       const userInsert = new UserEntity()
+      // console.log('userInsert',userInsert)
       const { guid, name, lastname, email, password, refreshToken, active } = user.properties()
       Object.assign(userInsert, { guid, name, lastname, email: email.value, password, refreshToken, active })
 
