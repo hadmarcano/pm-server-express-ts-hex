@@ -15,9 +15,9 @@ export class AppService {
          password: process.env.DB_PASS || 'password',
          database: process.env.DB_NAME || 'prueba',
          // For DEV:
-         entities: [process.env.DB_ENTITIES || 'src/**/*.entity{.ts,.js}'],
+         // entities: [process.env.DB_ENTITIES || 'src/**/*.entity{.ts,.js}'],
          // For PROD:
-         // entities: [process.env.DB_ENTITIES || 'dist/**/*.entity.js'],
+         entities: [process.env.DB_ENTITIES || 'dist/**/*.entity.js'],
          synchronize: process.env.DB_SYNC === 'true' ? true : true,
          logging: process.env.DB_LOGG === 'true' ? true : false,
       }

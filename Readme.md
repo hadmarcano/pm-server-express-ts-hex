@@ -24,7 +24,7 @@ luego de esto, la segunda etapa es que se optimiza el tamaño de las dependencia
 - docker network create net-hexa-advance
 ```
 
-### 3. Vinculando nuestros contenedores a nuestra red
+### 3. Vinculando nuestros contenedores a nuestra red (mysqlserver es el container de la bbdd)
 
 ```
 - docker network connect net-hexa-advance mysqlserver
@@ -40,4 +40,10 @@ luego de esto, la segunda etapa es que se optimiza el tamaño de las dependencia
 
 ```
 - docker run -d --name nodets-advance-container --network net-hexa-advance -p 3000:3000 -e DB_HOST=mysqlserver -e DB_PORT=3306  api-nodets-advance:1.0.0
+```
+
+### 6. Verificando que los contenedores tanto de BBDD y de nuestra imagen de la aplicación se encuentren dentro de la misma red.
+
+```
+- docker network inspect net-hexa-advance
 ```

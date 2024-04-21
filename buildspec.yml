@@ -1,0 +1,31 @@
+version: 0.2
+
+phases:
+    # steps:
+  pre_build:
+    commands:
+      - echo logging in to Amazon ECR... # process message
+      - aws --version # Version identification of AWS CLI
+      - REPOSITORY_URI=471112833093.dkr.ecr.us-east-1.amazonaws.com/nodetsadvance # Repository URI from ecr-create-repository
+      - aws ecr get-login-password | docker login --username AWS --password-stdin ${REPOSITORY_URI} # Login to ECR
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7) # Commit hash for Docker image tagging
+      - IMAGE_TAG=$(COMMIT_HASH:=latest) # Image tagging based on commit hash or latest
+
+  build:
+    commands:
+      - echo Build started on `date` # Build start message
+      - echo Building the docker image # Docker image build message
+      - docker build -t $REPOSITORY_URI:latest . # Docker image build command
+      # Reference of environment variables dynamically
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG # Copy Docker image tagging for backup
+
+  post_build:
+    commands:
+      - echo Build completed on `date` # Build completion message
+      - echo Pushing the docker images...
+      - docker push $REPOSITORY_URI:latest # Pushing the Docker image to ECR repository with :latest tag
+      - docker push $REPOSITORY_URI:$IMAGE_TAG # Pushing the Backup Docker image to ECR repository with :commit hash tag
+
+artifacts:
+  files:
+    - "Dockerrun.aws.json" # File config to Elastic Beanstalk
