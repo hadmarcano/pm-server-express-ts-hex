@@ -1,25 +1,30 @@
 // import { UserEntity } from '../../modules/user/infraestructure/user.entity'
 import { DB_CONFIG } from '../interfaces/dbConfig.interface'
+import yenv from 'yenv'
+
+const env = yenv('.env')
 
 export class AppService {
    static get PORT(): number {
-      return +process.env.PORT || 3000
-      // return Number(process.env.PORT) || 3000
+      return +env.PORT || 3000
+      // If not use yenv, you can do this:
+      // return +process.env.PORT || 3000
+
    }
 
    static get DBConfig(): DB_CONFIG {
       return {
-         host: process.env.DB_HOST || 'localhost',
-         port: +process.env.DB_PORT || 3310,
-         username: process.env.DB_USER || 'user',
-         password: process.env.DB_PASS || 'password',
-         database: process.env.DB_NAME || 'prueba',
+         host: env.DB_HOST || 'localhost',
+         port: +env.DB_PORT || 3310,
+         username: env.DB_USER || 'user',
+         password: env.DB_PASS || 'password',
+         database: env.DB_NAME || 'prueba',
          // For DEV:
          // entities: [process.env.DB_ENTITIES || 'src/**/*.entity{.ts,.js}'],
          // For PROD:
-         entities: [process.env.DB_ENTITIES || 'dist/**/*.entity.js'],
-         synchronize: process.env.DB_SYNC === 'true' ? true : true,
-         logging: process.env.DB_LOGG === 'true' ? true : false,
+         entities: [env.DB_ENTITIES || 'dist/**/*.entity.js'],
+         synchronize: env.DB_SYNC === 'true' ? true : true,
+         logging: env.DB_LOGG === 'true' ? true : false,
       }
    }
 }
