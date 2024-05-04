@@ -1,7 +1,7 @@
 {
    "AWSEBDOCKERRUNVERSION": "1",
    "Image": {
-     "Name": "471112833093.dkr.ecr.us-east-1.amazonaws.com/nodetsadvance:latest"
+     "Name": "471112833093.dkr.ecr.us-east-1.amazonaws.com/nodetsadvancetwo:latest"
    },
    "Ports": [
      {
