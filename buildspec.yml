@@ -6,7 +6,7 @@ phases:
     commands:
       - echo logging in to Amazon ECR... # process message
       - aws --version # Version identification of AWS CLI
-      - REPOSITORY_URI=471112833093.dkr.ecr.us-east-1.amazonaws.com/nodetsadvance # Repository URI from ecr-create-repository
+      - REPOSITORY_URI=471112833093.dkr.ecr.us-east-1.amazonaws.com/nodetsadvancetwo # Repository URI from ecr-create-repository
       - aws ecr get-login-password | docker login --username AWS --password-stdin ${REPOSITORY_URI} # Login to ECR
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7) # Commit hash for Docker image tagging
       - IMAGE_TAG=${COMMIT_HASH:=latest} # Image tagging based on commit hash or latest
