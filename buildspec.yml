@@ -15,8 +15,8 @@ phases:
     commands:
       - echo Build started on `date` # Build start message
       - echo Building the docker image # Docker image build message
-      - docker build -t $REPOSITORY_URI:latest . # Docker image build command
       - aws s3 cp s3://mybucketadvance/prd-advance/.env .env # Reference of environment variables dynamically
+      - docker build -t $REPOSITORY_URI:latest . # Docker image build command
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG # Copy Docker image tagging for backup
 
   post_build:
