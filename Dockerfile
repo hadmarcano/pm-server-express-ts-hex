@@ -49,7 +49,7 @@ COPY --from=DEPLOYMENT /build/package.json ./package.json
 COPY --from=DEPLOYMENT /build/dist ./dist
 
 # Copiar el archivo .env (Sólo cuando se esta desplegando en el AWS EC2, para pruebas en local comentar.)
-COPY --from=DEPLOYMENT /build/.env ./.env
+# COPY --from=DEPLOYMENT /build/.env ./.env
 
 CMD ["npm","run","prod"]
 
