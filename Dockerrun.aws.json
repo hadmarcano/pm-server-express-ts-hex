@@ -1,5 +1,5 @@
 {
-   "AWSEBDOCKERRUNVERSION": "1",
+   "AWSEBDockerrunVersion": "1",
    "Image": {
      "Name": "471112833093.dkr.ecr.us-east-1.amazonaws.com/nodetsadvancetwo:latest"
    },
