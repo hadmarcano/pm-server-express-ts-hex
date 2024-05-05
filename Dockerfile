@@ -36,7 +36,7 @@ RUN /usr/local/bin/node-prune
 
 # 2- IMAGE FOR PRODUCTION
 # Directory Production
-FROM node:alpine3.16
+FROM node:16-alpine
 
 # Directorio de la imagen
 WORKDIR /app
